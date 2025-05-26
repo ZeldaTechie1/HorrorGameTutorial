@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cnv4o2piixqct"]
 
-[ext_resource type="Script" uid="uid://cmb7kix3sk72w" path="res://Scenes/PlayerMovement.cs" id="1_rpqav"]
+[ext_resource type="Script" uid="uid://cmb7kix3sk72w" path="res://Scripts/PlayerMovement.cs" id="1_rpqav"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vkdvt"]
 
@@ -30,8 +30,8 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0, -0.67664, 1, -0.966667, 0.0229118, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+"points": PackedFloat32Array(1.5, -0.25, 0, 0, -0.507342, 1.0001, -0.333333, 2.65837e-05, 0.25, 0),
+"times": PackedFloat32Array(0, 0.400049)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -216,7 +216,7 @@ shape = SubResource("CapsuleShape3D_rpqav")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="FlashLight" type="SpotLight3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148231, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 distance_fade_enabled = true
 spot_range = 44.3659
 spot_angle = 34.9031

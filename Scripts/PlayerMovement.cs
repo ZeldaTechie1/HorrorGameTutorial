@@ -1,6 +1,8 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public partial class PlayerMovement : CharacterBody3D
 {
@@ -10,10 +12,19 @@ public partial class PlayerMovement : CharacterBody3D
 	public const float Sensitivity = 3.0f;
 	public bool isCrouched = false;
 
+	private SpotLight3D flashlight;
+	private Camera3D camera;
+	private PhysicsDirectSpaceState3D spaceState;
+	private AnimationPlayer animationPlayer;
+
     public override void _Ready()
     {
         base._Ready();
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		camera = GetNode<Camera3D>("Camera3D");
+		flashlight = camera.GetNode<SpotLight3D>("FlashLight");
+		spaceState = GetWorld3D().DirectSpaceState;
+		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -27,15 +38,14 @@ public partial class PlayerMovement : CharacterBody3D
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !isCrouched)
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		if(Input.IsActionJustPressed("Flashlight"))
 		{
-			SpotLight3D light = GetNode<Camera3D>("Camera3D").GetNode<SpotLight3D>("FlashLight");
-            light.Visible = !light.Visible;
+            flashlight.Visible = !flashlight.Visible;
         }
 
 		HandleCrouch();
@@ -68,15 +78,15 @@ public partial class PlayerMovement : CharacterBody3D
 		{
 			InputEventMouseMotion motion = @event as InputEventMouseMotion;
 			Rotation = new Vector3(Rotation.X, Rotation.Y - motion.Relative.X / 1000 * Sensitivity, Rotation.Z);
-			/*Recommend getting the camera and storing as a variable when game launches but following the tutorial for now*/
-			Camera3D camera = GetNode<Camera3D>("Camera3D");
-            camera.Rotation = new Vector3(Mathf.Clamp(camera.Rotation.X - motion.Relative.Y / 1000 * Sensitivity,-2,2), camera.Rotation.Y, camera.Rotation.Z);
+            camera.Rotation = new Vector3(Mathf.Clamp(camera.Rotation.X - motion.Relative.Y / 1000 * Sensitivity,-1.5709f,1.5709f), camera.Rotation.Y, camera.Rotation.Z);
 		}
     }
 
 	private void HandleCrouch()
 	{
-		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		if (!IsOnFloor())
+			return;
+
 		PhysicsRayQueryParameters3D rayQuery = new PhysicsRayQueryParameters3D()
 		{
 			From = Position,
@@ -92,7 +102,7 @@ public partial class PlayerMovement : CharacterBody3D
             {
 				return;
             }
-            GetNode<AnimationPlayer>("AnimationPlayer").Play(isCrouched ? "UnCrouch" : "Crouch");
+            animationPlayer.Play(isCrouched ? "UnCrouch" : "Crouch");
             isCrouched = !isCrouched;
         }
     }
