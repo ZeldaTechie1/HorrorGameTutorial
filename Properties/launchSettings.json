@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "HorrorGameTutorial": {
+      "commandName": "Project",
+      "commandLineArgs": null
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "commandLineArgs": "--path. --verbose",
+      "executablePath": "C:\\Users\\Jesus Reyes\\Desktop\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
