@@ -196,7 +196,7 @@ _data = {
 &"UnCrouch": SubResource("Animation_gntrk")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_rpqav")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -209,7 +209,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_vkdvt")
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485, 0)
 shape = SubResource("CapsuleShape3D_rpqav")
 
 [node name="Camera3D" type="Camera3D" parent="."]

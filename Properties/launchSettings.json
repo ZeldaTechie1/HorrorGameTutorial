@@ -2,7 +2,7 @@
   "profiles": {
     "HorrorGameTutorial": {
       "commandName": "Project",
-      "commandLineArgs": null
+      "commandLineArgs": ""
     },
     "Profile 1": {
       "commandName": "Executable",
