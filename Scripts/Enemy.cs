@@ -134,18 +134,20 @@ public partial class Enemy : CharacterBody3D
                 if (playerInEarshotClose)
 				{
 					CurrentState = States.Chasing;
+                    NavigationAgent.TargetPosition = player.Position;
                     GD.Print("HearClose");
                 }
 
-                if (playerInVisionFar && !player.isCrouched)
+                if (playerInVisionFar && player.LightValue > .04f)
                 {
                     CurrentState = States.Hunting;
                     NavigationAgent.TargetPosition = player.Position;
                     GD.Print("SeeFar");
                 }
-                if (playerInVisionClose)
+                if (playerInVisionClose && player.LightValue >.03f)
 				{
 					CurrentState = States.Chasing;
+                    NavigationAgent.TargetPosition = player.Position;
                     GD.Print("SeeClose");
                 }
             }

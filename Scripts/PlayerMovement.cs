@@ -12,10 +12,19 @@ public partial class PlayerMovement : CharacterBody3D
 	public const float Sensitivity = 3.0f;
 	public bool isCrouched = false;
 
+	public double LightValue
+	{
+		get
+		{
+			return LightDetectObject.LightLevel * (isCrouched ? .75f : 1);
+		}
+	}
+
 	private SpotLight3D flashlight;
 	private Camera3D camera;
 	private PhysicsDirectSpaceState3D spaceState;
 	private AnimationPlayer animationPlayer;
+    private LightDetect LightDetectObject;
 
     public override void _Ready()
     {
@@ -25,6 +34,7 @@ public partial class PlayerMovement : CharacterBody3D
 		flashlight = camera.GetNode<SpotLight3D>("FlashLight");
 		spaceState = GetWorld3D().DirectSpaceState;
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		LightDetectObject = GetNode<LightDetect>("LightDetect");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -42,6 +52,8 @@ public partial class PlayerMovement : CharacterBody3D
 		{
 			velocity.Y = JumpVelocity;
 		}
+
+		GD.Print(LightValue);
 
 		if(Input.IsActionJustPressed("Flashlight"))
 		{
